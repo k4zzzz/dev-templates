@@ -1,0 +1,12 @@
+services:
+  agent-env:
+    build: . # builds from Containerfile on first run
+    image: your-project:base # replace with your actual project name
+    tty: true
+    stdin_open: true
+    environment:
+      - LM_STUDIO_URL=http://host.lima.internal:1234/v1
+      - LM_STUDIO_API_KEY=${LM_STUDIO_API_KEY} # pulled from VM shell at start
+    working_dir: /workspace
+    cap_drop: [ALL]
+    network_mode: bridge

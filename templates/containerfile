@@ -1,0 +1,23 @@
+FROM ubuntu:24.04
+
+# Disable apt sandbox — required when building as root.
+# Applies at build time only, not at container runtime.
+RUN echo 'APT::Sandbox::User "root";' > /etc/apt/apt.conf.d/00sandbox
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl git python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install uv system-wide for Python project work inside the container
+RUN curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=/usr/local/bin sh
+
+# Create the workspace tree at image build time.
+# /workspace is the WORKDIR. /workspace/dev and /workspace/data
+# are the only directories agents should read from and write to.
+# No bind mount, no host path — fully contained inside the image layer.
+RUN mkdir -p /workspace \
+    && mkdir -p /workspace/dev \
+    && mkdir -p /workspace/data
+
+WORKDIR /workspace
