@@ -1,7 +1,9 @@
 Read all documents in the raw/ folder.
 
+For each directory in the raw/ folder, create a root directory in plan/ with the corresponding name, this is the project_root directory.
+
 For each document, write a one-paragraph summary and save it to
-plan/sources/<filename>.md. Note the document type (spec, transcript,
+project_root/plan/sources/<filename>.md. Note the document type (spec, transcript,
 RFC, notes, etc.), what decisions or requirements it establishes, and
 any open questions it raises.
 
@@ -69,6 +71,9 @@ Then, working across all sources together:
    with a relative link and a one-line description of what it contains,
    organized by category (Sources, Phases, Components, Tracking,
    Reference).
+
+10. DIAGRAMS
+    A directory of Mermaid diagrams organized hierarchically by phase and component (e.g., phases/phase-1/auth.md, phases/phase-2/data-pipeline.md). Each file contains architecture diagrams, dependency graphs, workflow flows, and state machines specific to that component’s implementation. The agent generates and maintains these diagrams by invoking the mermaid-diagram-creator skill located at .agentc/skills/mermaid-diagram-creator. When components/, phases.md, or tasks.md are updated, the agent automatically triggers the skill to render or patch the relevant diagrams, ensuring visual artifacts stay synchronized with the current plan state. A root index (diagram.md) provides quick navigation across all phase/component diagram sets.
 
 10. LOG
     Write plan/log.md — an append-only record of this run. Start with a

@@ -71,7 +71,7 @@ provision:
       echo "export PATH=\"$UV_BIN:\$PATH\"" >> "$HOME/.bashrc"
 
       # install ghostty
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
+      curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)
 
       # install opencode
       curl -fsSL https://opencode.ai/install | bash
