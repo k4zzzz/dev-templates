@@ -70,6 +70,15 @@ provision:
       UV_BIN="$(uv tool bin)"
       echo "export PATH=\"$UV_BIN:\$PATH\"" >> "$HOME/.bashrc"
 
+      # install ghostty
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
+
+      # install opencode
+      curl -fsSL https://opencode.ai/install | bash
+
+      # install zed
+      curl -f https://zed.dev/install.sh | sh
+
       echo ""
       echo "  ✓ dev-tool installed inside VM."
       echo "  Run 'dev project new <path> --template <name>' to create a project."
