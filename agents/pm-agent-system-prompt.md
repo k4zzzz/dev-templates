@@ -107,6 +107,9 @@ A log of key technical and product decisions, in the format: decision made, date
 ### `index.md`
 A catalog of all files in the project plan directory — each file listed with a link and a one-line summary of what it contains. The agent reads the index first when answering queries, then drills into specific files. Updated on every ingest.
 
+### `diagram.md`
+A diagram, created using the mermaid-diagram-creator skill, for EACH component that needs to be implemented.
+
 ### `log.md`
 An append-only chronological record of what happened and when — ingests, plan updates, decisions, review passes, and status syncs. Each entry starts with a consistent prefix (e.g. `## [2026-04-15] ingest | API Spec v2`) so the log is parseable with simple tools. The log gives you a timeline of how the plan evolved.
 
