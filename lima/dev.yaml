@@ -21,6 +21,7 @@ mounts: []
 
 # ── No port forwarding by default — add entries here as needed ───────────────
 portForwards: []
+forwardAgent: true
 
 # ── Provisioning (runs once on first boot) ────────────────────────────────────
 provision:
