@@ -48,6 +48,9 @@ provision:
     script: |
       #!/bin/bash
       set -euo pipefail
+      GITHUB_PAT="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"
+
+      git clone --depth=1 https://${GITHUB_PAT}@github.com/k4zzzz/sandboxed-dev-tool.git "$HOME/.dev-tool"
 
       # Install uv
       curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -59,7 +62,7 @@ provision:
       echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
 
       # Clone and install the dev CLI
-      git clone --depth=1 https://github.com/OWNER/dev-tool.git "$HOME/.dev-tool"
+      git clone --depth=1 https://github.com/k4zzzz/sandboxed-dev-tool.git "$HOME/.dev-tool"
       uv tool install "$HOME/.dev-tool"
 
       # Add uv tool bin to PATH
