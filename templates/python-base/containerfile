@@ -17,7 +17,8 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=/usr/local/bin s
 # are the only directories agents should read from and write to.
 # No bind mount, no host path — fully contained inside the image layer.
 RUN mkdir -p /workspace \
-    && mkdir -p /workspace/dev \
-    && mkdir -p /workspace/data
+    && mkdir -p /workspace/src \
+    && mkdir -p /workspace/data \
+    && touch /workspace/src/main.py
 
 WORKDIR /workspace
