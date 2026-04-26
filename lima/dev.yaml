@@ -80,7 +80,9 @@ provision:
       curl -f https://zed.dev/install.sh | sh
 
       # install rust
-
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+      # install proj tool
+      curl -sL https://raw.githubusercontent.com/k4zzzz/dev-templates/main/install.sh | bash
 
       echo ""
