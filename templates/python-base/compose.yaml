@@ -1,5 +1,5 @@
 services:
-  agent-env:
+  env:
     build: . # builds from Containerfile on first run
     image: your-project:base # replace with your actual project name
     tty: true

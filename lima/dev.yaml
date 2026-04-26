@@ -79,7 +79,8 @@ provision:
       # install zed
       curl -f https://zed.dev/install.sh | sh
 
-      echo ""
-      echo "  ✓ dev-tool installed inside VM."
-      echo "  Run 'dev project new <path> --template <name>' to create a project."
+      # install rust
+
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
       echo ""
