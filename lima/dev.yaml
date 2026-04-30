@@ -28,6 +28,7 @@ provision:
   # System-level: install OS packages
   - mode: system
     script: |
+    fstrim -av /
       #!/bin/bash
       set -euo pipefail
       export DEBIAN_FRONTEND=noninteractive
