@@ -19,13 +19,16 @@ mounts: []
 
 # ── No port forwarding by default — add entries here as needed ───────────────
 portForwards: []
-forwardAgent: true
+ssh:
+  forwardAgent: true
 
 # ── Use Apple Virtualization Framework
 vmType: "vz"
-rosetta:
-  enabled: true
-  binfmt: true
+vmOpts:
+  vz:
+    rosetta:
+      enabled: true
+      binfmt: true
 
 # ── Provisioning (runs once on first boot) ────────────────────────────────────
 provision:
