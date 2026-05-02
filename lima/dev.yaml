@@ -23,6 +23,12 @@ mounts: []
 portForwards: []
 forwardAgent: true
 
+# ── Use Apple Virtualization Framework
+vmType: "vz"
+rosetta:
+  enabled: true
+  binfmt: true
+
 # ── Provisioning (runs once on first boot) ────────────────────────────────────
 provision:
   # System-level: install OS packages
