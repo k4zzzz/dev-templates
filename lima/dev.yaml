@@ -31,14 +31,11 @@ rosetta:
 
 # ── Provisioning (runs once on first boot) ────────────────────────────────────
 provision:
-  # System-level: install OS packages
   - mode: system
     script: |
-      fstrim -av \
       #!/bin/bash
       set -euo pipefail
       export DEBIAN_FRONTEND=noninteractive
-
       apt-get update -q
       apt-get install -y -q \
         git \
@@ -46,50 +43,25 @@ provision:
         podman-compose \
         uidmap \
         fuse-overlayfs \
-        slirp4netns
+        slirp4netns \
+        gh
+      loginctl enable-linger "ubuntu" 2>/dev/null || true
 
-      # Enable lingering so user-level podman services survive logout
-      loginctl enable-linger "$SUDO_USER" 2>/dev/null || true
-
-  # User-level: install uv and the dev CLI
   - mode: user
     script: |
       #!/bin/bash
       set -euo pipefail
-      GITHUB_PAT="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"
-
-      git clone --depth=1 https://${GITHUB_PAT}@github.com/k4zzzz/sandboxed-dev-tool.git "$HOME/.dev-tool"
-
       # Install uv
       curl -LsSf https://astral.sh/uv/install.sh | sh
       export PATH="$HOME/.local/bin:$PATH"
-
-      # Add uv to shell rc so it persists across sessions
-      echo '' >> "$HOME/.bashrc"
-      echo '# uv (added by dev-tool provisioning)' >> "$HOME/.bashrc"
       echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
-
-      # Clone and install the dev CLI
-      git clone --depth=1 https://github.com/k4zzzz/sandboxed-dev-tool.git "$HOME/.dev-tool"
-      uv tool install "$HOME/.dev-tool"
-
-      # Add uv tool bin to PATH
       UV_BIN="$(uv tool bin)"
-      echo "export PATH=\"$UV_BIN:\$PATH\"" >> "$HOME/.bashrc"
-
-      # install ghostty
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
-
-      # install opencode
-      curl -fsSL https://opencode.ai/install | bash
-
-      # install zed
-      curl -f https://zed.dev/install.sh | sh
-
-      # install rust
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-      # install proj tool
+      echo "export PATH=\"${UV_BIN}:\$PATH\"" >> "$HOME/.bashrc"
+      # Install Rust (non-interactive)
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      # Install proj tool
       curl -sL https://raw.githubusercontent.com/k4zzzz/dev-templates/main/install.sh | bash
-
-      echo ""
+      # GUI apps — non-fatal since this is a headless VM
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)" || true
+      curl -fsSL https://opencode.ai/install | bash || true
+      curl -f https://zed.dev/install.sh | sh || true
