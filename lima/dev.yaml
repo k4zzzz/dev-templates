@@ -12,7 +12,7 @@ disk: "60GiB"
 # ── Base image ────────────────────────────────────────────────────────────────
 images:
   - location: "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-arm64.img"
-    arch: "x86_64"
+    arch: "arm64"
 
 # ── No host mounts (intentional isolation) ────────────────────────────────────
 mounts: []
