@@ -47,7 +47,7 @@ provision:
         slirp4netns \
         gh
       loginctl enable-linger "ubuntu" 2>/dev/null || true
-      export TERM=xterm-256color
+      echo 'export TERM=xterm-256color' >> ~/.bashrc
       source ~/.bashrc
 
   - mode: user
