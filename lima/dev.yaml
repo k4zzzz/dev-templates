@@ -47,8 +47,6 @@ provision:
         slirp4netns \
         gh \
       loginctl enable-linger "ubuntu" 2>/dev/null || true \
-      echo 'export TERM=xterm-256color' >> ~/.bashrc \
-      source ~/.bashrc
 
   - mode: user
     script: |
@@ -68,3 +66,5 @@ provision:
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)" || true \
       curl -fsSL https://opencode.ai/install | bash || true \
       curl -f https://zed.dev/install.sh | sh || true \
+      echo 'export TERM=xterm-256color' >> ~/.bashrc \
+      source ~/.bashrc
