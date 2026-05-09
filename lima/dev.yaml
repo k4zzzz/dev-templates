@@ -45,9 +45,9 @@ provision:
         uidmap \
         fuse-overlayfs \
         slirp4netns \
-        gh
-      loginctl enable-linger "ubuntu" 2>/dev/null || true
-      echo 'export TERM=xterm-256color' >> ~/.bashrc
+        gh \
+      loginctl enable-linger "ubuntu" 2>/dev/null || true \
+      echo 'export TERM=xterm-256color' >> ~/.bashrc \
       source ~/.bashrc
 
   - mode: user
@@ -55,17 +55,16 @@ provision:
       #!/bin/bash
       set -euo pipefail
       # Install uv
-      curl -LsSf https://astral.sh/uv/install.sh | sh
-      export PATH="$HOME/.local/bin:$PATH"
-      echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
-      UV_BIN="$(uv tool bin)"
-      echo "export PATH=\"${UV_BIN}:\$PATH\"" >> "$HOME/.bashrc"
+      curl -LsSf https://astral.sh/uv/install.sh | sh \
+      export PATH="$HOME/.local/bin:$PATH" \
+      echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc" \
+      UV_BIN="$(uv tool bin)"  \
+      echo "export PATH=\"${UV_BIN}:\$PATH\"" >> "$HOME/.bashrc" \
       # Install Rust (non-interactive)
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
       # Install proj tool
-      curl -sL https://raw.githubusercontent.com/k4zzzz/dev-templates/main/install.sh | bash
+      curl -sL https://raw.githubusercontent.com/k4zzzz/dev-templates/main/install.sh | bash \
       # GUI apps — non-fatal since this is a headless VM
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)" || true
-      curl -fsSL https://opencode.ai/install | bash || true
-      curl -f https://zed.dev/install.sh | sh || true
-
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)" || true \
+      curl -fsSL https://opencode.ai/install | bash || true \
+      curl -f https://zed.dev/install.sh | sh || true \
