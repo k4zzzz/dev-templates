@@ -36,6 +36,7 @@ provision:
     script: |
       #!/bin/bash
       set -euo pipefail
+      sed -i '1i export TERM=xterm-256color' "$HOME/.bashrc"
       export DEBIAN_FRONTEND=noninteractive
       apt-get update -q
       apt-get install -y -q \
@@ -45,8 +46,9 @@ provision:
         uidmap \
         fuse-overlayfs \
         slirp4netns \
-        gh \
-      loginctl enable-linger "ubuntu" 2>/dev/null || true \
+        gh
+      loginctl enable-linger "ubuntu" 2>/dev/null || true
+      sed -i '1i export TERM=xterm-256color' "$HOME/.bashrc"
 
   - mode: user
     script: |
