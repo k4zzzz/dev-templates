@@ -37,8 +37,8 @@ provision:
   - mode: system
     script: |
       #!/bin/bash
+      echo 'export TERM=xterm-256color' >> "$HOME/.bashrc"
       set -euo pipefail
-      sed -i '1i export TERM=xterm-256color' "$HOME/.bashrc"
       export DEBIAN_FRONTEND=noninteractive
       apt-get update -q
       apt-get install -y -q \
@@ -50,7 +50,6 @@ provision:
         slirp4netns \
         gh
       loginctl enable-linger "ubuntu" 2>/dev/null || true
-      sed -i '1i export TERM=xterm-256color' "$HOME/.bashrc"
 
   - mode: user
     script: |
@@ -74,6 +73,3 @@ provision:
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)" || true
       curl -fsSL https://opencode.ai/install | bash || true
       curl -f https://zed.dev/install.sh | sh || true
-
-      # These will now run correctly
-      echo 'export TERM=xterm-256color' >> "$HOME/.bashrc"
