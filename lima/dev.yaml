@@ -66,11 +66,14 @@ provision:
       # Install Rust
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-      # Install proj tool
-      curl -sL https://raw.githubusercontent.com/k4zzzz/dev-templates/main/install.sh | bash
+      # Install Bun
+      curl -fsSL https://bun.com/install | bash
 
       # install opencode
       curl -fsSL https://opencode.ai/install | bash || true
 
       # GUI apps (Non-fatal)
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)" || true
+
+      # Install proj tool
+      curl -sL https://raw.githubusercontent.com/k4zzzz/dev-templates/main/install.sh | bash
