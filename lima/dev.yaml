@@ -69,7 +69,8 @@ provision:
       # Install proj tool
       curl -sL https://raw.githubusercontent.com/k4zzzz/dev-templates/main/install.sh | bash
 
+      # install opencode
+      curl -fsSL https://opencode.ai/install | bash || true
+
       # GUI apps (Non-fatal)
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)" || true
-      curl -fsSL https://opencode.ai/install | bash || true
-      curl -f https://zed.dev/install.sh | sh || true
