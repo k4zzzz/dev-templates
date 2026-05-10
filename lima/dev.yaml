@@ -54,8 +54,6 @@ provision:
   - mode: user
     script: |
       #!/bin/bash
-      #
-      # set -euo pipefail
 
       export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
@@ -69,11 +67,9 @@ provision:
       curl -fsSL https://bun.com/install | bash
 
       # install opencode
-      # curl -fsSL https://opencode.ai/install | bash || true
       curl -fsSL https://opencode.ai/install | bash
 
       # GUI apps (Non-fatal)
-      # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)" || true
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
 
       # Install proj tool
