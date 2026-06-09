@@ -16,11 +16,13 @@ images:
 
 env:
   TERM: "xterm-256color"
+
 # ── No host mounts (intentional isolation) ────────────────────────────────────
 mounts: []
 
 # ── No port forwarding by default — add entries here as needed ───────────────
 portForwards: []
+
 ssh:
   forwardAgent: true
 
@@ -37,7 +39,6 @@ provision:
   - mode: system
     script: |
       #!/bin/bash
-      echo 'export TERM=xterm-256color' >> "$HOME/.bashrc"
       set -euo pipefail
       export DEBIAN_FRONTEND=noninteractive
       apt-get update -q
@@ -54,27 +55,39 @@ provision:
   - mode: user
     script: |
       #!/bin/bash
-
+      set -euo pipefail
       export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
-      # Install uv
+      # uv
       curl -LsSf https://astral.sh/uv/install.sh | sh
 
-      # Install Rust
+      # Rust
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      source "$HOME/.cargo/env"
 
-      # Install Bun
+      ## add rust analyzer via rustup
+      rustup component add rust-analyzer
+
+      # Bun
       curl -fsSL https://bun.com/install | bash
 
-      # install opencode
+      # opencode
       curl -fsSL https://opencode.ai/install | bash
 
-      # GUI apps (Non-fatal)
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
+      # Ghostty (non-fatal — headless VM, best-effort)
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)" || true
 
-      # Install proj tool
+      # proj tool
       curl -sL https://raw.githubusercontent.com/k4zzzz/dev-templates/main/install.sh | bash
 
-      # Use full path for exported variables during provision
-      export PATH="$HOME/.local/bin:$PATH"
-      echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
+      # Persist all tool paths for interactive shells
+      cat >> "$HOME/.bashrc" << 'EOF'
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.bun/bin:$PATH"
+EOF
+
+      # Ensure .bashrc is sourced in login shells
+      cat >> "$HOME/.bash_profile" << 'EOF'
+if [ -f "$HOME/.bashrc" ]; then
+  source "$HOME/.bashrc"
+fi
+EOF
