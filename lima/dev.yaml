@@ -82,12 +82,12 @@ provision:
 
       # Persist all tool paths for interactive shells
       cat >> "$HOME/.bashrc" << 'EOF'
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.bun/bin:$PATH"
-EOF
+      export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.bun/bin:$PATH"
+      EOF
 
       # Ensure .bashrc is sourced in login shells
       cat >> "$HOME/.bash_profile" << 'EOF'
-if [ -f "$HOME/.bashrc" ]; then
-  source "$HOME/.bashrc"
-fi
-EOF
+      if [ -f "$HOME/.bashrc" ]; then
+        source "$HOME/.bashrc"
+      fi
+      EOF
