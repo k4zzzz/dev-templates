@@ -134,3 +134,10 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 alias line-count='git ls-files | xargs wc -l'
+
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# Set prompt with red Git branch: '\e[31m' turns text red, '\e[0m' resets it
+export PS1="${PS1:+\$PS1}\[\e[31m\]\$(parse_git_branch)\[\e[0m\]\$ "
