@@ -135,11 +135,10 @@ export PATH="$HOME/.local/bin:$PATH"
 
 alias line-count='git ls-files | xargs wc -l'
 
+# Extract and format the current git branch
 parse_git_branch() {
-    local b=$(git symbolic-ref --short HEAD 2>/dev/null)
-    [[ -z $b ]] && b="HEAD"
-    echo "$b (HEAD)"
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-export PS1="$PS1 \[\e[31m\]\$(parse_git_branch)\[\e[0m\] "
-
+# Apply to the prompt variable (Green directory, Cyan git branch)
+export PS1="\u@\h:\[\033[32m\]\w\[\033[36m\]\$(parse_git_branch)\[\033[00m\]\$ "
